@@ -12,19 +12,19 @@ pipeline {
         stage('Compile') {
             steps {
                 sh 'chmod +x mvnw'
-                sh './mvnw clean compile'
+                sh './cicd/mvnw clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                sh './mvnw test'
+                sh './cicd/mvnw test'
             }
         }
 
         stage('Package') {
             steps {
-                sh './mvnw package -DskipTests'
+                sh './cicd/mvnw package -DskipTests'
             }
         }
     }
