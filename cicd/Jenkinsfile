@@ -33,6 +33,8 @@ pipeline {
         always {
             junit testResults: 'cicd/target/surefire-reports/*.xml',
                   allowEmptyResults: true
+            archiveArtifacts artifacts: 'cicd/target/site/jacoco/**',
+                  allowEmptyArchive: true
         }
 
         success {
