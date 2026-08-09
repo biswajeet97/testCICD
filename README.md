@@ -1,6 +1,6 @@
 
 
-Hi this app is to learn the process of CICD
+Hi this app is to learn the process of CICD.
 
 
 
