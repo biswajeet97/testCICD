@@ -3,35 +3,35 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Compile') {
             steps {
-                sh 'chmod +x mvnw'
-                sh './cicd/mvnw clean compile'
+                dir('cicd') {
+                    sh 'chmod +x mvnw'
+                    sh './mvnw clean compile'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                sh './cicd/mvnw test'
+                dir('cicd') {
+                    sh './mvnw test'
+                }
             }
         }
 
         stage('Package') {
             steps {
-                sh './cicd/mvnw package -DskipTests'
+                dir('cicd') {
+                    sh './mvnw package -DskipTests'
+                }
             }
         }
     }
 
     post {
         always {
-            junit testResults: 'target/surefire-reports/*.xml',
+            junit testResults: 'cicd/target/surefire-reports/*.xml',
                   allowEmptyResults: true
         }
 
