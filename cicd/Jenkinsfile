@@ -19,7 +19,13 @@ pipeline {
                 }
             }
         }
-
+        stage('Quality Gate') {
+            steps {
+                dir('cicd') {
+                    sh './mvnw verify -DskipTests'
+                  }
+              }
+          }
         stage('Package') {
             steps {
                 dir('cicd') {
