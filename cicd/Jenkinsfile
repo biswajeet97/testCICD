@@ -27,6 +27,12 @@ pipeline {
               }
           }
         stage('Package') {
+            when {
+              anyOf {
+                branch 'dev'
+                branch 'main'
+              }
+            }
             steps {
                 dir('cicd') {
                     sh './mvnw package -DskipTests'
