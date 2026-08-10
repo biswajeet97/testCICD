@@ -55,6 +55,19 @@ pipeline {
                 }
             }
         }
+        stage('Docker Build') {
+         when {
+          anyOf {
+            branch 'dev'
+            branch 'main'
+          }
+        }
+        steps {
+          dir('cicd') {
+             sh 'docker build -t hello-cicd:${BUILD_NUMBER} .'
+          }
+        }
+}
     }
 
     post {
