@@ -29,8 +29,8 @@ pipeline {
         stage('SonarQube Analysis') {
         steps {
               dir('cicd') {
-                withSonarQubeEnv('SonarQube') {
-                sh './mvnw sonar:sonar'
+              withSonarQubeEnv('SonarQube') {
+              sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:5.7.0.6970:sonar'
               }
             }
           }
