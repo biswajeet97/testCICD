@@ -126,7 +126,7 @@ pipeline {
           sh '''
             sleep 10
 
-            RESPONSE=$(curl -s -o /tmp/response.txt -w "%{http_code}" http://localhost:8081/api/hello)
+            RESPONSE=$(curl -s -o /tmp/response.txt -w "%{http_code}" http://hello-cicd-dev:8080/api/hello)
 
             if [ "$RESPONSE" != "200" ]; then
                 echo "DEV smoke test failed with HTTP status $RESPONSE"
