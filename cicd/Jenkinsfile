@@ -96,6 +96,25 @@ pipeline {
             }
           }
         }
+        stage('Deploy DEV') {
+        when {
+          branch 'dev'
+        }
+
+        steps {
+          sh '''
+            docker pull ghcr.io/biswajeet97/hello-cicd:${BUILD_NUMBER}
+
+            docker stop hello-cicd-dev || true
+            docker rm hello-cicd-dev || true
+
+            docker run -d \
+              --name hello-cicd-dev \
+              -p 8081:8080 \
+              ghcr.io/biswajeet97/hello-cicd:${BUILD_NUMBER}
+            '''
+          }
+        }
       }
 
     post {
