@@ -115,7 +115,29 @@ pipeline {
             '''
           }
         }
+
+        stage('Smoke Test DEV') {
+          when {
+          branch 'dev'
+        }
+
+        steps {
+          sh '''
+            sleep 10
+
+            RESPONSE=$(curl -s -o /tmp/response.txt -w "%{http_code}" http://localhost:8081/hello)
+
+            if [ "$RESPONSE" != "200" ]; then
+                echo "DEV smoke test failed with HTTP status $RESPONSE"
+                cat /tmp/response.txt || true
+                exit 1
+            fi
+
+            grep -q "Hello World" /tmp/response.txt
+          '''
+        }
       }
+    }
 
     post {
         always {
