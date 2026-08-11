@@ -110,6 +110,7 @@ pipeline {
 
             docker run -d \
               --name hello-cicd-dev \
+              --network jenkins_default \
               -p 8081:8080 \
               ghcr.io/biswajeet97/hello-cicd:${BUILD_NUMBER}
             '''
